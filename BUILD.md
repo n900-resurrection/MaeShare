@@ -3,6 +3,21 @@
 MaeShare is built for `armel` with a Maemo 5 (Fremantle) cross toolchain. Two parts are
 compiled here; a third (the network core) is inherited from MeeShare.
 
+## Quick way: make
+
+The root `Makefile` does the steps below for the client and the package (`make help`):
+
+```sh
+make CXX=<cross g++> SYSROOT=<Fremantle sysroot with Qt 4.7> MOC=<moc of Qt 4.7> QJSON=<qjson sources>   # build/maeshare
+make i18n-check                                                    # translations complete? (needs node)
+make deb BASE_DEB=maeshare_1.0.3_armel.deb ...                     # package on top of the author's release
+make deploy DEVICE=root@<phone>                                    # copy the program and the QML files to a phone
+```
+
+`probe` (the network core), the alias word lists and the sharing plugin are not built here: `make deb` takes them from the release package of the author.
+The moc must be the one of Qt 4.7 (the moc of the SDK is an i386 scratchbox program; build one from the Qt 4.7.4 sources: qmake, `src/tools/bootstrap`, `src/tools/moc`).
+The manual steps follow.
+
 ## What is in this archive
 
 ```
@@ -37,7 +52,7 @@ arm-linux-gnueabi-g++ -fPIC -O2 -I<qt47 include> -I<qjson include> \
     -o n900-lanshare -lQtDeclarative -lQtGui -lQtNetwork -lQtCore -lstdc++ -lm
 ```
 
-`main.cpp` (QApplication bootstrap) comes from the upstream MeeShare tree; the QML
+`main.cpp` (QApplication bootstrap) comes from the upstream MeeShare tree, the QML
 resources (`qml/*.qml`, `qml/i18n.js`, `qml/icons/`) are copied next to the binary at
 install time.
 
