@@ -5,15 +5,15 @@
 // controller (Chinese source strings) is mapped through t(), which also handles
 // the few concatenated forms via prefix/suffix rules.
 
-// 语言列表：跟随系统 + 简体中文 / 繁體中文（香港 / 台灣）/ English
-var TAGS = ["system", "zh_CN", "zh_HK", "zh_TW", "en"];
+// 语言列表：跟随系统 + 简体中文 / 繁體中文（香港 / 台灣）/ English / Čeština
+var TAGS = ["system", "zh_CN", "zh_HK", "zh_TW", "en", "cs"];
 
 var NAMES = {
-    zh_CN: "简体中文", zh_HK: "繁體中文 – 香港", zh_TW: "繁體中文 – 台灣", en: "English"
+    zh_CN: "简体中文", zh_HK: "繁體中文 – 香港", zh_TW: "繁體中文 – 台灣", en: "English", cs: "Čeština"
 };
 
 var P = {};
-var LANG_COUNT = 4;
+var LANG_COUNT = 5;
 
 P.en = {
     history: "History", history_empty: "Nothing received yet", history_open_dir: "Open folder",
@@ -118,7 +118,14 @@ P.en = {
     text_pick_device: "Tap a device to send",
     text_message: "Text message",
     copy: "Copy",
-    msg_copied: "Copied to clipboard."
+    msg_copied: "Copied to clipboard.",
+    msg_task_busy: "Finish the current task first.",
+    text_too_long: "Text is too long (at most 4096 characters).",
+    text_dir_failed: "Could not create the folder for texts.",
+    text_save_failed: "Could not save the text.",
+    msg_text_received: "Text message received.",
+    msg_unknown_device: "Unknown device",
+    end_stop: "."
 };
 
 P.zh_CN = {
@@ -224,7 +231,14 @@ P.zh_CN = {
     text_pick_device: "点一台设备即可发送",
     text_message: "文本消息",
     copy: "复制",
-    msg_copied: "已复制到剪贴板。"
+    msg_copied: "已复制到剪贴板。",
+    msg_task_busy: "请先完成当前任务。",
+    text_too_long: "文本过长，请控制在 4096 个字符以内。",
+    text_dir_failed: "无法创建文本目录。",
+    text_save_failed: "文本保存失败。",
+    msg_text_received: "收到一条文本消息。",
+    msg_unknown_device: "未知设备",
+    end_stop: "。"
 };
 
 
@@ -333,7 +347,14 @@ P.zh_HK = {
     text_pick_device: "點一台裝置即可傳送",
     text_message: "文字訊息",
     copy: "複製",
-    msg_copied: "已複製到剪貼簿。"
+    msg_copied: "已複製到剪貼簿。",
+    msg_task_busy: "請先完成目前任務。",
+    text_too_long: "文字過長，請控制在 4096 個字元以內。",
+    text_dir_failed: "無法建立文字目錄。",
+    text_save_failed: "文字儲存失敗。",
+    msg_text_received: "收到一則文字訊息。",
+    msg_unknown_device: "未知裝置",
+    end_stop: "。"
 };
 
 P.zh_TW = {
@@ -440,7 +461,127 @@ P.zh_TW = {
     text_pick_device: "點一台裝置即可傳送",
     text_message: "文字訊息",
     copy: "複製",
-    msg_copied: "已複製到剪貼簿。"
+    msg_copied: "已複製到剪貼簿。",
+    msg_task_busy: "請先完成目前任務。",
+    text_too_long: "文字過長，請控制在 4096 個字元以內。",
+    text_dir_failed: "無法建立文字目錄。",
+    text_save_failed: "文字儲存失敗。",
+    msg_text_received: "收到一則文字訊息。",
+    msg_unknown_device: "未知裝置",
+    end_stop: "。"
+};
+
+P.cs = {
+    history: "Historie", history_empty: "Zatím nic nepřijato", history_open_dir: "Otevřít složku",
+    history_clear: "Vymazat historii", history_clear_q: "Odstranit všechny záznamy historie? Soubory zůstanou ve složce pro ukládání.",
+    info: "Informace", info_alias: "Název", info_ip: "IP", info_port: "Port",
+    nav_receive: "Příjem", nav_send: "Odeslat", nav_settings: "Nastavení", nav_about: "O aplikaci", nav_quit: "Konec",
+    page_files: "Vyberte soubory", page_photos: "Vyberte fotografie", page_folder: "Složka pro ukládání",
+    page_received: "Přijaté soubory", page_name: "Název zařízení",
+    page_manual: "Zadat adresu",
+    manual_desc: "Napište IP adresu druhého zařízení ve stejné síti. Zařízení se přidá do seznamu, jakmile odpoví.",
+    manual_connect: "Připojit",
+    manual_note: "Používá se port 53317. Příklad: 192.168.1.30. Toto zařízení: %1",
+    page_about: "O aplikaci", page_language: "Jazyk",
+    receive_view: "Zobrazit přijaté soubory", receive_on_glyph: "ZAP", receive_off_glyph: "VYP",
+    receive_start: "Zapnout příjem", receive_stop: "Vypnout příjem",
+    quick_save: "Rychlé uložení", on: "Zapnuto", off: "Vypnuto", port_label: "Port 53317",
+    send_pick: "Vybrat", send_files: "Soubory", send_photos: "Fotografie", send_nearby: "Zařízení v okolí",
+    refresh: "Obnovit",
+    send_empty: "Hledám zařízení\nZkontrolujte, že má druhé zařízení otevřený LocalSend a je ve stejné Wi-Fi",
+    send_hint: "Vyberte, co poslat, pak klepněte na zařízení – odešle se hned",
+    send_btn: "Odeslat", send_busy: "Pracuji…", send_cancel: "Zrušit", send_clear: "Vymazat",
+    sel_one: "1 položka",
+    send_connect: "Připojit", device_generic: "Zařízení", default_device_name: "Nokia N900",
+    selected_n: "Vybráno souborů: %1", received_n: "Přijato souborů: %1",
+    settings_general: "Obecné", settings_autosave: "Automatické ukládání", settings_savedir: "Složka pro ukládání",
+    settings_keepawake: "Nenechat usnout", settings_keepawake_hint: "Displej zůstane při přenosu zapnutý, potom se vrátí běžné zhasínání",
+    image_failed: "Tento obrázek nelze zobrazit",
+    image_unsupported_title: "Soubory %1 zde nelze zobrazit",
+    image_unsupported_body: "Soubor byl uložen do:\n%2\n\nVestavěná prohlížečka v Maemu 5 nemá dekodér pro tento formát. Podporované: JPEG, PNG, GIF, BMP, TIFF, SVG. Převeďte ho na jiném zařízení.",
+    settings_devname: "Název zařízení", settings_language: "Jazyk",
+    settings_about: "O aplikaci", settings_version: "Verze %1",
+    settings_blurb: "Kompatibilní s LocalSend v2. Soubory putují přímo mezi zařízeními ve stejné Wi-Fi, bez serveru.",
+    settings_local: "Toto zařízení: %1",
+    settings_security: "Port 53317 · HTTPS / TLS 1.2\nPřipnutý certifikát, jen stejná podsíť",
+    settings_limits: "Až 200 MB na soubor, 400 MB na dávku. Při přenosu nechte aplikaci otevřenou.",
+    browser_select_dir: "Použít tuto složku", browser_done: "Hotovo (%1)", browser_up: "Nahoru", browser_empty: "Tady nejsou žádné soubory – klepněte na Nahoru nebo otevřete složku",
+    browser_tap: "Klepnutím na soubor ho zobrazíte", browser_current: "Aktuální složka", browser_selected: "Vybráno: %1",
+    files_root: "Soubory",
+    name_hint: "Ostatní zařízení vidí tento název", name_random: "Náhodný název", name_restore: "Obnovit", paste: "Vložit",
+    name_save: "Uložit",
+    name_note: "Názvy pocházejí z oficiálního seznamu slov LocalSend a přetrvají restart.",
+    about_version: "pro Maemo 5 / N900 · %1",
+    about_d1: "Aplikace pro přenos souborů v místní síti pro Nokii N900, kompatibilní s protokolem LocalSend.",
+    about_d2: "Odesílejte a přijímejte soubory v místní síti. Až 200 MB na soubor; při přenosu nechte aplikaci otevřenou.",
+    about_d3: "Obě zařízení musí být ve stejné Wi-Fi. Přijaté soubory najdete ve složce pro ukládání.",
+    about_credits: "Síťové jádro (probe): vychází z MeeShare / ChengChihz-MeeGo-Share (Apache-2.0), zde opraveno a rozšířeno\nProtokol LocalSend a seznam náhodných názvů: projekt LocalSend a přispěvatelé\nSíť a data: Qt, Mbed TLS, QJson\n\nNezávislá kompatibilní implementace, nepatří k projektu LocalSend.",
+    about_link: "Projekt LocalSend: localsend.org", quit_app: "Ukončit aplikaci",
+    dialog_receive: "Přijmout soubory?", dialog_accept: "Přijmout", dialog_reject: "Odmítnout",
+    dialog_complete: "Přijato", dialog_open: "Otevřít hned", dialog_view: "Zobrazit soubory", dialog_close: "Zavřít",
+    language_system: "Podle systému",
+    st_preparing: "Připravuji místní vyhledávání…", st_connecting: "Připojuji se…",
+    st_waiting: "Čekám na druhé zařízení…", st_preparing_name: "Připravuji název zařízení…",
+    st_discovering: "Hledám zařízení v okolí…", st_ready: "Připraveno. Hledám zařízení v okolí.",
+    st_receiving: "Přijímám…", st_rejected: "Příjem byl odmítnut.",
+    st_stopped: "Příjem a vyhledávání jsou vypnuté.",
+    st_first_run: "První spuštění: vytvářím bezpečnostní klíč, chvilku strpení…",
+    er_rejected: "Druhé zařízení odmítlo.", er_peer_busy: "Druhé zařízení je zaneprázdněné jiným přenosem. Zkuste to později.",
+    er_pin: "Druhé zařízení vyžaduje ověření PIN, které toto sestavení nepodporuje.",
+    er_rate: "Příliš mnoho požadavků. Zkuste to později.", er_timeout: "Druhé zařízení neodpovědělo. Zkuste to znovu.",
+    er_fingerprint: "Identita druhého zařízení se změnila. Připojte se znovu a odešlete znovu.",
+    er_config: "Nelze přistoupit ke složce s nastavením. Zkontrolujte volné místo nebo zbylý zámek.",
+    er_file_read: "Vybraný soubor nelze přečíst. Vyberte ho znovu.",
+    er_send: "Odeslání se nezdařilo. Zkontrolujte síť a druhé zařízení.",
+    er_connect: "Připojení se nezdařilo. Zkontrolujte, že je na druhém zařízení otevřený LocalSend.",
+    er_no_wifi: "Připojte se k Wi-Fi",
+    msg_file_missing: "Soubor chybí nebo ho nelze přečíst.", msg_pick_files: "Vyberte soubory k odeslání",
+    msg_max20: "Nejvýše 20 souborů najednou.", msg_duplicate: "Názvy souborů se opakují. Pošlete je zvlášť.",
+    msg_busy: "Nejdřív dokončete probíhající přenos.",
+    msg_dir_invalid: "Složka není dostupná. Vyberte složku v souborové oblasti telefonu.",
+    msg_dir_updated: "Složka pro ukládání byla změněna.", msg_ip_invalid: "Zadejte místní adresu IPv4.",
+    msg_insecure: "Toto zařízení používá nešifrovaný přenos. Zkuste to znovu, až druhá strana zapne šifrování.",
+    msg_need_device: "Nejdřív připojte zařízení a vyberte soubory.",
+    msg_name_empty: "Název zařízení nesmí být prázdný.", msg_name_save_failed: "Název zařízení se nepodařilo uložit.",
+    msg_name_saved: "Název zařízení byl uložen.", msg_consent_timeout: "Potvrzení příjmu vypršelo. Odešlete znovu.",
+    msg_helper_fail: "Nelze spustit pomocný program přenosu. Otevřete aplikaci znovu.",
+    msg_receiver_fail: "Nelze spustit pomocný program příjmu.", msg_send_canceled: "Odeslání zrušeno.",
+    msg_info_invalid: "Informace o zařízení nelze přečíst. Zkuste to znovu.", msg_bad_response: "Připojení se nezdařilo: neočekávaná odpověď.",
+    msg_unnamed: "Nepojmenované zařízení", msg_send_done: "Odesláno.",
+    msg_receiver_stopped: "Příjem se zastavil. Spusťte ho znovu.",
+    msg_receive_failed: "Příjem se nezdařil, částečný soubor byl odstraněn. Zkuste to znovu.",
+    msg_no_space: "Není dost místa. Změňte složku pro ukládání nebo uvolněte místo.",
+    msg_peer_canceled: "Druhé zařízení přenos zrušilo.", msg_port_busy: "Nelze spustit příjem: port 53317 může být používán.",
+    msg_receive_interrupt: "Příjem byl přerušen. Zkontrolujte síť a zkuste to znovu.",
+    msg_open_hint: "Otevřete ho v seznamu přijatých souborů",
+    "~已连接：": "Připojeno: ", "~来自 ": "Od ", "~接收完成，已保存到 ": "Přijato. Uloženo do ",
+    open_no_app: "Žádná aplikace tento typ souboru neotevře.",
+    open_failed: "Nelze spustit systémovou prohlížečku.",
+    "~已用系统查看器打开：": "Otevřeno systémovou prohlížečkou: ",
+    "~请在接收文件列表中点按查看：": "Otevřete ho v seznamu přijatých souborů: ",
+    "@ 字节": " bajtů",
+    back: "Zpět",
+    card_text: "Text",
+    page_text: "Odeslat text",
+    text_hint: "Napište zprávu; odešle se jako soubor .txt",
+    text_placeholder: "Zpráva",
+    text_send: "Odeslat text",
+    text_empty: "Nejdřív napište zprávu.",
+    text_sent: "Text odeslán.",
+    text_received: "Zobrazit přijatý text",
+    text_need_peer: "Nejdřív vyberte zařízení na stránce Odeslat",
+    send_pick_first: "Nahoře vyberte soubory, fotografie nebo text – zařízení v okolí se pak objeví tady",
+    text_pick_device: "Klepněte na zařízení, kam odeslat",
+    text_message: "Textová zpráva",
+    copy: "Kopírovat",
+    msg_copied: "Zkopírováno do schránky.",
+    msg_task_busy: "Nejdřív dokončete probíhající úlohu.",
+    text_too_long: "Text je příliš dlouhý (nejvýše 4096 znaků).",
+    text_dir_failed: "Nelze vytvořit složku pro texty.",
+    text_save_failed: "Text se nepodařilo uložit.",
+    msg_text_received: "Přijata textová zpráva.",
+    msg_unknown_device: "Neznámé zařízení",
+    end_stop: "."
 };
 
 var CN = {
@@ -498,6 +639,12 @@ var CN = {
     "没有可打开此类型文件的应用。": "open_no_app",
     "无法启动系统查看器。": "open_failed",
     "已复制到剪贴板。": "msg_copied",
+    "请先完成当前任务。": "msg_task_busy",
+    "文本过长，请控制在 4096 个字符以内。": "text_too_long",
+    "无法创建文本目录。": "text_dir_failed",
+    "文本保存失败。": "text_save_failed",
+    "收到一条文本消息。": "msg_text_received",
+    "未知设备": "msg_unknown_device",
 };
 
 var PFX = ["已连接：", "来自 ", "接收完成，已保存到 ", "请在接收文件列表中点按查看：", "已用系统查看器打开："];
@@ -512,6 +659,7 @@ function resolve(tag) {
         if (s.indexOf("tw") >= 0 || s.indexOf("hant") >= 0) return "zh_TW";
         return "zh_CN";
     }
+    if (s.indexOf("cs") === 0) return "cs";
     return "en";
 }
 
@@ -526,7 +674,15 @@ function t(lang, s) {
         k = PFX[i];
         if (s.indexOf(k) === 0) {
             var m = p["~" + k];
-            if (m !== undefined) return m + s.substring(k.length);
+            if (m !== undefined) {
+                var rest = s.substring(k.length);
+                // "已保存到 文件/路径。": the folder name and the closing full stop are part of the message
+                if (k === "接收完成，已保存到 ") {
+                    rest = rest.replace(/^文件/, p.files_root || P.en.files_root);
+                    rest = rest.replace(/。$/, p.end_stop || P.en.end_stop);
+                }
+                return m + rest;
+            }
         }
     }
     for (i = 0; i < SFX.length; ++i) {
