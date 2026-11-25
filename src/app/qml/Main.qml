@@ -597,7 +597,7 @@ Rectangle {
                                     x: 0
                                     y: 33
                                     width: parent.width
-                                    text: modelData.when + " · " + modelData.sizeText + " · " + modelData.peer
+                                    text: modelData.when + " · " + modelData.sizeText + " · " + I.t(app.langFamily(), modelData.peer)
                                     color: app.textMuted
                                     font.pixelSize: 15
                                     elide: Text.ElideRight

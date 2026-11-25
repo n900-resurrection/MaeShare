@@ -274,8 +274,8 @@ public:
         if (stored == root || stored.startsWith(root + "/")) receive = stored;
         automatic = settings.value("auto_save", false).toBool();
         langTag = settings.value("language", "").toString();
-        // 1.008 起语言保留 简体中文 / 繁體中文（香港 / 台灣）/ English，旧版残留的其它 tag 一律回落「跟随系统」
-        if (!langTag.isEmpty() && langTag != "zh_CN" && langTag != "zh_HK" && langTag != "zh_TW" && langTag != "en") {
+        // 1.008 起语言保留 简体中文 / 繁體中文（香港 / 台灣）/ English / Čeština，旧版残留的其它 tag 一律回落「跟随系统」
+        if (!langTag.isEmpty() && langTag != "zh_CN" && langTag != "zh_HK" && langTag != "zh_TW" && langTag != "en" && langTag != "cs") {
             langTag.clear();
             settings.setValue("language", "");
         }
