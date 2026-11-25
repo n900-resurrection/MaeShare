@@ -403,6 +403,10 @@ public:
         QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
         env.insert("N9_ALIAS_LANGUAGE", aliasLang());
         env.insert("MAESHARE_TEXT_SEND", sendingTextMode ? "1" : "0");
+        // With a Czech (and other) system locale the helper prints "Unsupported date format character" on stderr when it starts;
+        // the job channels are merged, so that line landed in front of the JSON and the parser failed ("Device information
+        // unreadable"). The helper needs no localisation: run it in the C locale.
+        env.insert("LC_ALL", "C");
         p.setProcessEnvironment(env);
     }
 
@@ -1145,6 +1149,9 @@ private slots:
 
         if (operation == "identity" || operation == "info") {
             bool ok = false;
+            // stray diagnostics (stderr is merged into the output) in front of the JSON must not break the parser
+            int jsonStart = jobOutput.indexOf('{');
+            if (jsonStart > 0) jobOutput.remove(0, jsonStart);
             QVariantMap data = QJson::Parser().parse(jobOutput, &ok).toMap();
             if (!ok) { finish(trUtf("设备信息无法识别，请重试。")); return; }
             if (operation == "identity") {
